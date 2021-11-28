@@ -1,11 +1,15 @@
 using System;
 using CodeBase.Logic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CodeBase.Hero
 {
   public class HeroAnimator : MonoBehaviour, IAnimationStateReader
   {
+    [SerializeField] private Animator animator;
+    [SerializeField] private CharacterController characterController;
+    
     private static readonly int MoveHash = Animator.StringToHash("Walking");
     private static readonly int AttackHash = Animator.StringToHash("AttackNormal");
     private static readonly int HitHash = Animator.StringToHash("Hit");
@@ -21,19 +25,21 @@ namespace CodeBase.Hero
     public event Action<AnimatorState> StateExited;
    
     public AnimatorState State { get; private set; }
-    
-    public Animator Animator;
+
+    private void Update()
+    {
+      animator.SetFloat(MoveHash, characterController.velocity.magnitude, 0.1f, Time.deltaTime);
+    }
 
     public bool IsAttacking => State == AnimatorState.Attack;
+
+    public void PlayHit() => animator.SetTrigger(HitHash);
     
+    public void PlayAttack() => animator.SetTrigger(AttackHash);
 
-    public void PlayHit() => Animator.SetTrigger(HitHash);
-    
-    public void PlayAttack() => Animator.SetTrigger(AttackHash);
+    public void PlayDeath() =>  animator.SetTrigger(DieHash);
 
-    public void PlayDeath() =>  Animator.SetTrigger(DieHash);
-
-    public void ResetToIdle() => Animator.Play(_idleStateHash, -1);
+    public void ResetToIdle() => animator.Play(_idleStateHash, -1);
     
     public void EnteredState(int stateHash)
     {
