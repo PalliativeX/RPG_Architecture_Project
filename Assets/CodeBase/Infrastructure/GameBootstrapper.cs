@@ -1,17 +1,25 @@
-﻿using System;
+﻿using CodeBase.UI;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure
 {
-    public class GameBootstrapper : MonoBehaviour
+    public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     {
-        private Game game;
+        [SerializeField] private LoadingCurtain curtain;
+        
+        private Game _game;
         
         private void Awake()
         {
-            game = new Game();
+            _game = new Game(this, curtain);
+            _game.StateMachine.Enter<BoostrapState>();
             
             DontDestroyOnLoad(this);
+        }
+
+        private void Update()
+        {
+            _game.StateMachine.Update();
         }
     }
 }

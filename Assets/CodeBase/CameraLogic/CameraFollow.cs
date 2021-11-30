@@ -15,7 +15,7 @@ namespace CodeBase.CameraLogic
 
         private void LateUpdate()
         {
-            if (target == null)
+            if (!target)
                 return;
 
             Quaternion rotation = Quaternion.Euler(rotationAngleX, 0f, 0f);
