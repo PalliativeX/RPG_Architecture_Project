@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Infrastructure.AssetManagement;
 using Infrastructure.Services.PersistentProgress;
 using UnityEngine;
@@ -11,14 +12,21 @@ namespace Infrastructure.Factory
         
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
+        public GameObject HeroGameObject { get; set; }
+
+        public event Action HeroCreated;
 
         public GameFactory(IAssets assets)
         {
             this.assets = assets;
         }
 
-        public GameObject CreateHero(GameObject at) => 
-            InstantiateRegistered(AssetPath.HeroPath, at.transform.position);
+        public GameObject CreateHero(GameObject at)
+        {
+            HeroGameObject = InstantiateRegistered(AssetPath.HeroPath, at.transform.position);
+            HeroCreated?.Invoke();
+            return HeroGameObject;
+        }
 
         public void CreateHud() => 
             InstantiateRegistered(AssetPath.HudPath);

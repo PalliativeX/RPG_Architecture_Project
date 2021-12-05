@@ -14,7 +14,7 @@ namespace Logic
 
         private void Awake()
         {
-            Active = true;
+            Active = false;
             _saveLoadService = AllServices.Container.Single<ISaveLoadService>();
         }
 
