@@ -1274,12 +1274,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 415700}
+  - component: {fileID: 3074648645566798976}
+  - component: {fileID: 6946093496361680746}
   - component: {fileID: 6832565831339224438}
   - component: {fileID: 9588594}
   - component: {fileID: 1941000699}
   - component: {fileID: 6475858531598714755}
-  - component: {fileID: 3074648645566798976}
-  - component: {fileID: 6946093496361680746}
+  - component: {fileID: 526049668003118882}
+  - component: {fileID: 3562616978910015034}
+  - component: {fileID: 5444252571033923061}
   m_Layer: 12
   m_Name: hero
   m_TagString: Player
@@ -1306,6 +1309,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3074648645566798976
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176288}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &6946093496361680746
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176288}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!143 &6832565831339224438
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1370,35 +1402,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 4
---- !u!65 &3074648645566798976
-BoxCollider:
+--- !u!114 &526049668003118882
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176288}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!54 &6946093496361680746
-Rigidbody:
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f22ef8c3066485e9c77c7a769b938e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1941000699}
+--- !u!114 &3562616978910015034
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 176288}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c63d26c903e4159b4207c1565a14734, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 526049668003118882}
+  move: {fileID: 6475858531598714755}
+  attack: {fileID: 5444252571033923061}
+  animator: {fileID: 1941000699}
+  deathFx: {fileID: 100006, guid: 2a474af3f4c27be4e9bdce39cfe4315d, type: 3}
+--- !u!114 &5444252571033923061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 176288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 978862debbe5494c9ae146429a2e9a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heroAnimator: {fileID: 1941000699}
+  characterController: {fileID: 6832565831339224438}
 --- !u!1 &178646
 GameObject:
   m_ObjectHideFlags: 0

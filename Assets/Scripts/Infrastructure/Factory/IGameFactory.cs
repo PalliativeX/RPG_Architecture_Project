@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Infrastructure.Services;
 using Infrastructure.Services.PersistentProgress;
+using Logic;
 using UnityEngine;
 
 namespace Infrastructure.Factory
@@ -10,11 +10,11 @@ namespace Infrastructure.Factory
     {
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
-        GameObject HeroGameObject { get; }
 
-        event Action HeroCreated;
         GameObject CreateHero(GameObject at);
-        void CreateHud();
+        GameObject CreateHud();
         void CleanUp();
+        void Register(ISavedProgressReader progressReader);
+        GameObject CreateMonster(MonsterTypeId typeId, Transform parent);
     }
 }

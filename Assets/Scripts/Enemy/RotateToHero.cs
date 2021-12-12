@@ -2,7 +2,7 @@
 
 namespace Enemy
 {
-    public class RotateToHero : MonoBehaviour
+    public class RotateToHero : Follow
     {
         [SerializeField] private float speed;
 

@@ -1,5 +1,4 @@
-﻿using Infrastructure.Factory;
-using Infrastructure.Services;
+﻿using Logic;
 using UnityEngine;
 
 namespace Enemy
@@ -8,13 +7,13 @@ namespace Enemy
     public class Attack : MonoBehaviour
     {
         [SerializeField] private EnemyAnimator animator;
+        [SerializeField] private float damage = 10f;
         [SerializeField] private float attackCooldown = 3f;
         [SerializeField] private float cleavage = 0.5f;
         [SerializeField] private float effectiveDistance = 0.5f;
 
         private static readonly Collider[] Hits = new Collider[1];
 
-        private IGameFactory _gameFactory;
         private Transform _heroTransform;
 
         private float _currentAttackCooldown;
@@ -22,12 +21,30 @@ namespace Enemy
         private int _layerMask;
         private bool _attackIsActive;
 
+        public float Damage
+        {
+            get => damage;
+            set => damage = value;
+        }
+
+        public float Cleavage
+        {
+            get => cleavage;
+            set => cleavage = value;
+        }
+
+        public float EffectiveDistance
+        {
+            get => effectiveDistance;
+            set => effectiveDistance = value;
+        }
+
+        public void Construct(Transform heroTransform) => 
+            _heroTransform = heroTransform;
+
         private void Awake()
         {
             _layerMask = 1 << LayerMask.NameToLayer("Player");
-                
-            _gameFactory = AllServices.Container.Single<IGameFactory>();
-            _gameFactory.HeroCreated += OnHeroCreated;
         }
 
         private void Update()
@@ -43,6 +60,7 @@ namespace Enemy
             if (Hit(out Collider hit))
             {
                 PhysicsDebug.DrawDebug(GetStartPoint(), cleavage, 1f);
+                hit.transform.GetComponent<IHealth>().TakeDamage(damage);
             }
         }
 
@@ -92,8 +110,6 @@ namespace Enemy
 
             _isAttacking = true;
         }
-
-        private void OnHeroCreated() => 
-            _heroTransform = _gameFactory.HeroGameObject.transform;
+        
     }
 }
